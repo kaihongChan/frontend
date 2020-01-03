@@ -1,0 +1,59 @@
+<div class="modal-header">
+  <div class="modal-title">审核人设置</div>
+</div>
+
+<div>
+  <nz-tabset
+    [nzTabPosition]="'left'" (nzSelectedIndexChange)="tabSelectedIndexChange($event)">
+    <nz-tab nzTitle="角色">
+      <ng-template nz-tab>
+        <nz-spin *ngIf="!roles" class="modal-spin"></nz-spin>
+        <nz-checkbox-wrapper style="width: 100%;" *ngIf="roles">
+          <div nz-row>
+            <div nz-col nzSpan="8" *ngFor="let role of roles">
+              <label nz-checkbox [nzValue]="role.id">{{ role.name }}</label>
+            </div>
+          </div>
+        </nz-checkbox-wrapper>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="部门">
+      <ng-template nz-tab>
+        <nz-spin *ngIf="!departments" class="modal-spin"></nz-spin>
+        <nz-tree [nzData]="departments" nzShowLine nzCheckable></nz-tree>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="用户">
+      <ng-template nz-tab>
+        <nz-spin *ngIf="!users" class="modal-spin"></nz-spin>
+        <div *ngIf="users">
+          <nz-transfer
+            [nzDataSource]="users"
+            nzShowSearch
+            [nzListStyle]="{ 'width': '45%', 'height.px': 300 }"
+            [nzRender]="render"
+            (nzSelectChange)="select($event)"
+            (nzChange)="change($event)">
+            <ng-template #render let-item> {{ item.name }}【{{ item.nickname }}】 </ng-template>
+          </nz-transfer>
+        </div>
+      </ng-template>
+    </nz-tab>
+
+    <nz-tab nzTitle="动态">
+      <ng-template nz-tab>
+        <nz-spin *ngIf="!columns" class="modal-spin"></nz-spin>
+
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+</div>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary"
+          [nzLoading]="http.loading">保存
+  </button>
+</div>

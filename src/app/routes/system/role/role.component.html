@@ -1,0 +1,16 @@
+<page-header></page-header>
+<nz-card>
+  <sf *ngIf="showFilter" mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)"
+      (formReset)="st.reset($event); showFilter = !showFilter" style="margin-bottom: 12px;"></sf>
+  <div style="margin-bottom: 12px;">
+    <button nz-button (click)="add()" [nzType]="'primary'">
+      <i nz-icon nzType="plus"></i>
+      <span>新建</span>
+    </button>
+    <button *ngIf="!showFilter" nz-button (click)="showFilter = !showFilter">
+      <i nz-icon nzType="filter"></i>
+      <span>筛选</span>
+    </button>
+  </div>
+  <st #st [data]="url" [columns]="columns" [size]="'middle'" [res]="res" [page]="paginate"></st>
+</nz-card>

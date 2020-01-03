@@ -1,0 +1,26 @@
+<page-header></page-header>
+<nz-card>
+  <sf *ngIf="showFilter" mode="search" [schema]="searchSchema" (formSubmit)="searchHandle($event)"
+      (formReset)="st.reset($event);showFilter = !showFilter" style="margin-bottom: 12px;"></sf>
+  <div style="margin-bottom: 12px;">
+    <button nz-button (click)="add()" [nzType]="'primary'">
+      <i nz-icon nzType="plus"></i>
+      <span>新建</span>
+    </button>
+    <button *ngIf="!showFilter" nz-button (click)="showFilter = !showFilter">
+      <i nz-icon nzType="filter"></i>
+      <span>筛选</span>
+    </button>
+  </div>
+  <st #st [data]="url" [columns]="columns" [size]="'middle'" [res]="res" [page]="paginate">
+    <ng-template st-row="statusCell" let-item>
+      <nz-switch [ngModel]="item.status" nzCheckedChildren="启用"
+                 (click)="statusSwitchChange(item)" [nzLoading]="loading"
+                 nzUnCheckedChildren="禁用"></nz-switch>
+    </ng-template>
+
+    <ng-template st-row="avatarCell" let-item>
+      <img [src]="item.avatar ? item.avatar : './assets/tmp/img/avatar.jpg'" class="img"/>
+    </ng-template>
+  </st>
+</nz-card>

@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <div class="modal-title">查看 {{ record.name }} 信息</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+<div sv-container *ngIf="i">
+  <sv label="ID">{{ i.id }}</sv>
+  <sv label="权限名称">{{ i.name }}</sv>
+  <sv label="路由名称">{{ i.route_name }}</sv>
+  <sv label="创建时间">{{ i.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+  <sv label="最后更新时间">{{ i.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+  <sv label="描述" [col]="2">{{ i.description }}</sv>
+</div>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>

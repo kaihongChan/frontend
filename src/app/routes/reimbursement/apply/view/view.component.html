@@ -1,0 +1,83 @@
+<div class="modal-header">
+  <div class="modal-title">查看</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+<div sv-container *ngIf="i">
+  <nz-tabset *ngIf="i" [nzTabPosition]="'left'" [nzType]="'line'">
+    <nz-tab nzTitle="基础信息">
+      <div sv-container>
+        <sv label="ID">{{ i.id }}</sv>
+        <sv label="名称">{{ i.name }}</sv>
+        <sv label="创建时间" [col]="2">{{ i.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+        <sv label="最后更新时间" [col]="2">{{ i.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+      </div>
+    </nz-tab>
+
+    <nz-tab nzTitle="明细">
+      <div class="mb-md"></div>
+        <nz-steps [nzCurrent]="1" nzProgressDot>
+          <nz-step [nzTitle]="'创建项目'" [nzDescription]="createDesc">
+            <ng-template #createDesc>
+              <div style="position: relative; left: 38px; font-size: 14px;">
+                <div style="margin-top: 8px; margin-bottom: 4px;">
+                  曲丽丽
+                  <i nz-icon nzType="dingding" class="ml-sm"></i>
+                </div>
+                <div style="margin-top: 8px; margin-bottom: 4px;">2016-12-12 12:32</div>
+              </div>
+            </ng-template>
+          </nz-step>
+          <nz-step [nzTitle]="'部门初审'" [nzDescription]="checkedDesc">
+            <ng-template #checkedDesc>
+              <div style="position: relative; left: 38px;font-size: 14px;">
+                <div style="margin-top: 8px; margin-bottom: 4px;">
+                  周毛毛
+                  <i nz-icon nzType="dingding" class="ml-sm" style="color: #00a0e9;"></i>
+                </div>
+                <div style="margin-top: 8px; margin-bottom: 4px;">
+                  <a>催一下</a>
+                </div>
+              </div>
+            </ng-template>
+          </nz-step>
+          <nz-step [nzTitle]="'财务复核'"></nz-step>
+          <nz-step [nzTitle]="'完成'"></nz-step>
+        </nz-steps>
+    </nz-tab>
+
+    <nz-tab nzTitle="附件">
+      <div class="mb-md"></div>
+      <nz-steps [nzCurrent]="1" nzProgressDot>
+        <nz-step [nzTitle]="'创建项目'" [nzDescription]="createDesc">
+          <ng-template #createDesc>
+            <div style="position: relative; left: 38px; font-size: 14px;">
+              <div style="margin-top: 8px; margin-bottom: 4px;">
+                曲丽丽
+                <i nz-icon nzType="dingding" class="ml-sm"></i>
+              </div>
+              <div style="margin-top: 8px; margin-bottom: 4px;">2016-12-12 12:32</div>
+            </div>
+          </ng-template>
+        </nz-step>
+        <nz-step [nzTitle]="'部门初审'" [nzDescription]="checkedDesc">
+          <ng-template #checkedDesc>
+            <div style="position: relative; left: 38px;font-size: 14px;">
+              <div style="margin-top: 8px; margin-bottom: 4px;">
+                周毛毛
+                <i nz-icon nzType="dingding" class="ml-sm" style="color: #00a0e9;"></i>
+              </div>
+              <div style="margin-top: 8px; margin-bottom: 4px;">
+                <a>催一下</a>
+              </div>
+            </div>
+          </ng-template>
+        </nz-step>
+        <nz-step [nzTitle]="'财务复核'"></nz-step>
+        <nz-step [nzTitle]="'完成'"></nz-step>
+      </nz-steps>
+    </nz-tab>
+  </nz-tabset>
+</div>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>

@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <div class="modal-title">{{record ? '编辑' : '新建'}}</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+<div *ngIf="i">
+  <form nz-form [formGroup]="validateForm">
+    <input nz-input hidden formControlName="id"/>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzRequired nzFor="name">名称</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="名称必填！">
+            <input nz-input formControlName="name" placeholder="策略名称"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzRequired nzFor="route">策略标识</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="策略标识必填！">
+            <input nz-input formControlName="identify" placeholder="策略标识"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzFor="permissions" nzRequired>权限</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="权限必填！">
+            <input formControlName="permissions" hidden>
+            <nz-transfer
+              [nzListStyle]="{ 'width': '45%' }"
+              [nzDataSource]="permissions"
+              nzShowSearch (nzChange)="transferChange($event)"
+              [nzTitles]="['所有权限', '包含权限']">
+            </nz-transfer>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzFor="description">
+            描述
+          </nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <textarea nz-input [rows]="3" placeholder="权限描述" formControlName="description"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+  </form>
+
+</div>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="submit(validateForm.value)" [disabled]="!validateForm.valid"
+          [nzLoading]="http.loading">保存
+  </button>
+</div>

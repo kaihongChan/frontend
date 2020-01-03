@@ -1,0 +1,14 @@
+<page-header></page-header>
+
+<nz-card>
+  <sf *ngIf="showSearch" mode="search" [schema]="searchSchema" (formSubmit)="searchHandle($event)"
+      (formReset)="st.reset($event); showSearch = !showSearch" style="margin-bottom: 12px;"></sf>
+  <div style="margin-bottom: 12px;">
+    <button *ngIf="!showSearch" nz-button (click)="showSearch = !showSearch">
+      <i nz-icon nzType="filter"></i>
+      <span>筛选</span>
+    </button>
+  </div>
+  <st #st [data]="url" [columns]="columns" [size]="'middle'" [res]="res" [page]="paginate">
+  </st>
+</nz-card>

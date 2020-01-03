@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <div class="modal-title">查看 {{ record.name }} 信息</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+<div sv-container *ngIf="i">
+  <sv label="ID">{{ i.id }}</sv>
+  <sv label="用户名">{{ i.name }}</sv>
+  <sv label="昵称">{{ i.nickname }}</sv>
+  <sv label="邮箱">{{ i.email }}</sv>
+  <sv label="状态">{{ i.status ? '启用' : '禁用' }}</sv>
+  <sv label="最后登陆IP" [col]="2">{{ i.last_login_ip }}</sv>
+  <sv label="创建时间" [col]="2">{{ i.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+  <sv label="最后更新时间" [col]="2">{{ i.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+  <sv label="最后登陆时间" [col]="2">{{ i.last_login_time | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+  <sv label="头像"><img style="max-width: 32px; max-height: 32px;" class="img" src="{{ i.avatar ? i.avatar : './assets/tmp/img/avatar.jpg' }}"></sv>
+  <sv label="角色" [col]="2">
+    <ng-container *ngFor="let userRole of i.roles">
+      <nz-tag [nzColor]="'blue'" style="margin-bottom: 12px;">{{ userRole.name + '[' + userRole.identify + ']' }}</nz-tag>
+    </ng-container>
+  </sv>
+</div>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>

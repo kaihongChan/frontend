@@ -1,0 +1,96 @@
+<div class="modal-header">
+  <div class="modal-title">{{record ? '编辑' : '新建'}}</div>
+</div>
+
+<nz-spin *ngIf="!edge" class="modal-spin"></nz-spin>
+
+<div *ngIf="edge">
+  <form nz-form [formGroup]="validateForm">
+    <input nz-input hidden formControlName="id"/>
+    <input nz-input hidden formControlName="workflow_id"/>
+    <div nz-row [nzGutter]="24">
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzFor="source" nzRequired>源节点</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="源节点必填！">
+            <input nz-input hidden formControlName="source" placeholder="源节点"/>
+            <nz-tag [nzColor]="'cyan'">{{ edge.source_node }}</nz-tag>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzFor="target" nzRequired>目标节点</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="目标节点必填！">
+            <input nz-input hidden formControlName="target" placeholder="目标节点"/>
+            <nz-tag [nzColor]="'cyan'">{{ edge.target_node }}</nz-tag>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzFor="label">标签</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <input nz-input formControlName="label" placeholder="标签"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzFor="btn">分支条件</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="条件必填！">
+            <button nz-button [hidden]="clearHidden" nzType="danger" nzBlock (click)="removeCondition()"> - 点击清空条件
+            </button>
+
+            <div [formArrayName]="'conditions'">
+              <ng-container *ngFor="let control of conditions.controls; let i = index" [formGroupName]="i">
+
+                <nz-input-group nzCompact>
+
+                  <nz-select *ngIf="i" nzAllowClear nzShowSearch formControlName="logical_operator" nzPlaceHolder="逻辑运算符"
+                             style="min-width: 15%;">
+                    <nz-option *ngFor="let operator of logicalOperators | keyvalue" [nzValue]="operator.value"
+                               [nzLabel]="operator.key.toString()"></nz-option>
+                  </nz-select>
+
+                  <nz-select nzAllowClear nzShowSearch formControlName="column" nzPlaceHolder="字段"
+                             style="min-width: 20%;">
+                    <nz-option *ngFor="let column of conditionColumns" [nzValue]="column.column"
+                               [nzLabel]="column.name"></nz-option>
+                  </nz-select>
+
+                  <nz-select nzAllowClear nzShowSearch formControlName="relational_operator"
+                             nzPlaceHolder="关系运算符"
+                             style="min-width: 15%;">
+                    <nz-option *ngFor="let operator of relationalOperators | keyvalue" [nzValue]="operator.value"
+                               [nzLabel]="operator.key.toString()"></nz-option>
+                  </nz-select>
+
+                  <input type="text" formControlName="value" nz-input placeholder="数值"
+                         style="min-width: 46%; max-width: 46%;"/>
+
+                  <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="delCondition(i)"></i>
+                </nz-input-group>
+              </ng-container>
+            </div>
+
+            <button nz-button nzType="dashed" nzBlock (click)="addCondition()"> + 点击设置条件</button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close();">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="submitForm(validateForm.value)"
+          [disabled]="!validateForm.valid"
+          [nzLoading]="http.loading">保存
+  </button>
+</div>

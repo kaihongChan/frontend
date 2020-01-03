@@ -1,0 +1,55 @@
+<page-header></page-header>
+
+<nz-card>
+  <sf *ngIf="showSearch" mode="search" [schema]="searchSchema" (formSubmit)="searchHandle($event)"
+      (formReset)="st.reset($event); showSearch = !showSearch" style="margin-bottom: 12px;"></sf>
+  <div style="margin-bottom: 12px;">
+    <button nz-button (click)="add()" [nzType]="'primary'">
+      <i nz-icon nzType="plus"></i>
+      <span>新建</span>
+    </button>
+    <button *ngIf="!showSearch" nz-button (click)="showSearch = !showSearch">
+      <i nz-icon nzType="filter"></i>
+      <span>筛选</span>
+    </button>
+  </div>
+  <st #st [data]="url" [columns]="columns" [size]="'middle'" [res]="res"
+      [expand]="expand" expandAccordion
+      [page]="paginate" (change)="stChange($event)">
+
+    <ng-template #expand>
+      <nz-spin *ngIf="!process" class="modal-spin"></nz-spin>
+      <ng-container *ngIf="process">
+        <div class="mb-md"></div>
+        <nz-steps>
+          <ng-container *ngFor="let step of process; let i = index;">
+            <nz-step [nzTitle]="step.name" [nzDescription]="createDesc" [nzStatus]="step.status">
+              <ng-template #createDesc>
+                <div *ngIf="step.action else otherContent" style="position: relative; left: 38px; font-size: 14px;">
+                  <div style="margin-top: 8px; margin-bottom: 4px;">
+                    {{ step.createdBy }}
+                  </div>
+                  <div style="margin-top: 8px; margin-bottom: 4px;">
+                    {{ step.createdAt }}
+                  </div>
+                  <div style="margin-top: 8px; margin-bottom: 4px;">
+                    {{ step.remarks }}
+                  </div>
+                </div>
+                <ng-template #otherContent>
+                  <ng-container *ngIf="step.status === 'process'">
+                    <div style="position: relative;font-size: 14px;">
+                      <div style="margin-top: 8px; margin-bottom: 4px;">
+                        <a (click)="msgSrv.success('click')">催一下</a>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-template>
+              </ng-template>
+            </nz-step>
+          </ng-container>
+        </nz-steps>
+      </ng-container>
+    </ng-template>
+  </st>
+</nz-card>
