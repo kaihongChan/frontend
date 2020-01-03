@@ -1,6 +1,6 @@
 {
   "/admin": {
-    "target": "http://localhost:8888/api/admin",
+    "target": "http://laravel:7888/api/admin",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
