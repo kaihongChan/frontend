@@ -1,0 +1,60 @@
+<page-header></page-header>
+<nz-card>
+  <div style="margin: 12px 0">
+    <button nz-button (click)="add()" [nzType]="'primary'">
+      <i nz-icon nzType="plus"></i>
+      <span>新建</span>
+    </button>
+    <button nz-button (click)="expandAll()">
+      <i nz-icon [nzType]="isExpandAll ? 'caret-down': 'caret-right'"></i>
+      <span>{{isExpandAll ? '收起' : '展开'}}</span>
+    </button>
+
+    <button nz-button (click)="refresh()" [nzLoading]="loading">
+      <i nz-icon [nzType]="'reload'"></i>
+      <span>刷新</span>
+    </button>
+  </div>
+
+  <nz-input-group [nzSuffix]="suffixIcon" style="width: 320px;margin-bottom: 12px;">
+    <input type="text" nz-input placeholder="检索" [(ngModel)]="searchValue"
+           (ngModelChange)="searchValue = searchValue.trim();"/>
+    <ng-template #suffixIcon>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </nz-input-group>
+
+  <nz-tree [nzData]="menuList" (nzDblClick)="openFolder($event)"
+           [nzSearchValue]="searchValue" [nzExpandedKeys]="expandedKeys">
+    <ng-template #nzTreeTemplate let-node>
+      <span style="display: inline-block;">
+        <i nz-icon *ngIf="node.icon" [nzType]="node.icon" style="margin-right: 8px;"></i>
+
+        <span class="ant-tree-title" style="margin-right: 24px;cursor: pointer;">
+          <ng-container *ngIf="node.isMatched else elseBlock">
+            <span>{{ node.title.slice(0, node.title.indexOf(searchValue)) }}
+              <span class="font-highlight">{{ searchValue }}</span>
+              {{ node.title.slice(searchValue.length + node.title.indexOf(searchValue), node.title.length) }}
+            </span>
+          </ng-container>
+          <ng-template #elseBlock>
+            <span>{{ node.title }}</span>
+          </ng-template>
+        </span>
+
+        <a (click)="show(node)">查看</a>
+        <nz-divider nzType="vertical"></nz-divider>
+
+        <a (click)="edit(node)">编辑</a>
+        <nz-divider nzType="vertical"></nz-divider>
+
+        <a (click)="add(node)">添加子级</a>
+        <nz-divider nzType="vertical"></nz-divider>
+
+        <a nz-popconfirm nzTitle="确定删除 {{ node.title }} ？" (nzOnConfirm)="del(node)">删除</a>
+      </span>
+    </ng-template>
+  </nz-tree>
+
+</nz-card>
+

@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <div class="modal-title">{{ record.title }}</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+<div sv-container *ngIf="i">
+  <sv label="ID">{{ i.id }}</sv>
+  <sv label="名称">{{ i.name }}</sv>
+  <sv label="i18n键值">{{ i.i18n }}</sv>
+  <sv label="父级菜单">{{ i.parent ? i.parent.name : '-' }}</sv>
+  <sv label="类型">{{ i.type === 1 ? '路由' : '节点' }}</sv>
+  <sv label="路由">{{ i.link ? i.link : '-' }}</sv>
+  <sv label="图标">
+    <ng-container *ngIf="i.icon else elseBlock">
+      <i nz-icon nzType="{{ i.icon }}"></i>
+    </ng-container>
+    <ng-template #elseBlock>
+      -
+    </ng-template>
+  </sv>
+  <sv label="排序号">{{ i.sort }}</sv>
+  <sv label="创建时间">{{ i.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+  <sv label="最后更新时间">{{ i.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+</div>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>

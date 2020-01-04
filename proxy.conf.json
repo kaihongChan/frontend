@@ -1,0 +1,11 @@
+{
+  "/admin": {
+    "target": "http://laravel:7888/api/admin",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/admin": ""
+    }
+  }
+}

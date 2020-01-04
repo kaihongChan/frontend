@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <div class="modal-title">{{ record.title }}</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+<nz-tabset *ngIf="i" [nzTabPosition]="'left'" [nzType]="'line'">
+  <nz-tab nzTitle="基础信息">
+    <div sv-container>
+      <sv label="ID">{{ i.id }}</sv>
+      <sv label="名称">{{ i.name }}</sv>
+      <sv label="创建时间" [col]="2">{{ i.created_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+      <sv label="最后更新时间" [col]="2">{{ i.updated_at | date: 'yyyy-MM-dd HH:mm:ss' }}</sv>
+    </div>
+  </nz-tab>
+  <nz-tab nzTitle="成员">
+    <ng-template nz-tab>
+      <nz-card>
+        <st #st [data]="'admin/department/members?id='+this.i.id" [columns]="columns" [size]="'middle'" [res]="res"
+            [page]="paginate"></st>
+      </nz-card>
+    </ng-template>
+  </nz-tab>
+</nz-tabset>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>

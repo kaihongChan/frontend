@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <div class="modal-title">{{record.title }} ：成员</div>
+</div>
+
+<nz-card *ngIf="record.key">
+  <div class="mb-md float-right" *ngIf="memberChecked.length">
+    <button nz-button (click)="setAsManager()" nzType="primary">设置主管</button>
+    <button nz-button (click)="removeManager()" nzType="danger">移除主管</button>
+  </div>
+  <sf mode="search" [schema]="searchSchema" (formSubmit)="searchHandle($event)"
+      (formReset)="st.reset($event);" style="margin-bottom: 12px;"></sf>
+
+  <st #st [data]="'admin/department/members?id='+this.record.key" [columns]="columns" [size]="'middle'" [res]="res"
+      [page]="paginate" (change)="checkHandle($event)"></st>
+</nz-card>

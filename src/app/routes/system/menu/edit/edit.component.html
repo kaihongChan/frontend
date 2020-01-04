@@ -1,0 +1,111 @@
+<div class="modal-header">
+  <div class="modal-title">{{record ? '编辑' : '新建'}}</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+
+<div *ngIf="i">
+  <form nz-form [formGroup]="validateForm">
+    <input nz-input hidden formControlName="id"/>
+    <div nz-row [nzGutter]="24">
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzFor="pid">父级</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-tree-select
+              style="width: 100%"
+              [nzNodes]="menuOptionList"
+              nzShowSearch
+              nzPlaceHolder="请选择父级，缺省为一级菜单"
+              formControlName="pid">
+            </nz-tree-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzRequired>名称</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="名称必填！">
+            <input nz-input formControlName="name" placeholder="菜单名称"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzRequired>类型</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzErrorTip="类型必填！">
+            <nz-radio-group formControlName="type" (ngModelChange)="typeChange()">
+              <label nz-radio [nzValue]="0">节点</label>
+              <label nz-radio [nzValue]="1">路由</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20" *ngIf="linkControlShow">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzRequired>路由</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="路由必填！">
+            <input nz-input formControlName="link" placeholder="菜单路由"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzRequired>i18n</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="i18n必填！">
+            <input nz-input formControlName="i18n" placeholder="i18n"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8">角色</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-select
+              formControlName="roles"
+              [nzMaxTagCount]="3"
+              [nzMaxTagPlaceholder]="tagPlaceHolder"
+              nzMode="multiple"
+              nzPlaceHolder="请选择角色">
+              <nz-option *ngFor="let role of roleOptionList" [nzLabel]="role.name" [nzValue]="role.id"></nz-option>
+            </nz-select>
+            <ng-template #tagPlaceHolder let-selectedList>...</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8">图标</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <input nz-input formControlName="icon" placeholder="图标"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8">排序</nz-form-label>
+          <nz-form-control [nzSpan]="16">
+            <nz-input-number formControlName="sort" [nzMin]="0"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+  </form>
+
+</div>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="submitForm(validateForm.value)"
+          [disabled]="!validateForm.valid" [nzLoading]="http.loading">保存
+  </button>
+</div>
+
+

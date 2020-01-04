@@ -1,0 +1,33 @@
+<page-header title="流程设计"></page-header>
+
+<nz-spin *ngIf="!data" class="modal-spin"></nz-spin>
+
+<div *ngIf="data">
+  <button nz-button nzTooltipTitle="默认" nzTooltipPlacement="top" nz-tooltip
+          (click)="setMode('default')">
+    <i nz-icon nzType="drag" nzTheme="outline"></i>
+  </button>
+  <button nz-button nzType="primary" nzTooltipTitle="添加节点" nzTooltipPlacement="top" nz-tooltip
+          (click)="setMode('addNode')">
+    <i nz-icon nzType="plus" nzTheme="outline"></i>
+  </button>
+  <button nz-button nzType="primary" nzTooltipTitle="添加连线" nzTooltipPlacement="top" nz-tooltip
+          (click)="setMode('addEdge')">
+    <i nz-icon nzType="pull-request" nzTheme="outline"></i>
+  </button>
+
+  <ng-container *ngIf="itemSelected">
+    <button nz-button nzType="primary" nzTooltipTitle="编辑" nzTooltipPlacement="top" nz-tooltip
+            (click)="editModal(itemSelected)">
+      <i nz-icon nzType="edit" nzTheme="outline"></i>
+    </button>
+    <button nz-button nzType="danger" nzTooltipTitle="删除" nzTooltipPlacement="top" nz-tooltip
+            (click)="del(itemSelected)">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+    </button>
+  </ng-container>
+
+  <div id="mountNode" class="mountNode"></div>
+</div>
+
+

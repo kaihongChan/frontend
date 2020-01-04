@@ -1,0 +1,144 @@
+<div class="modal-header">
+  <ng-container>
+    <div class="modal-title">{{ record.id ? '编辑' : '新建' }}</div>
+  </ng-container>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+
+<div *ngIf="i">
+  <form nz-form [formGroup]="validateForm">
+    <input nz-input hidden formControlName="id"/>
+    <div nz-row [nzGutter]="24">
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="name">用户名</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" nzHasFeedback nzErrorTip="用户名必填！">
+            <input nz-input formControlName="name" id="name" placeholder="用户名"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="nickname" nzRequired>
+          <span>
+            昵称
+            <i nz-icon nz-tooltip nzTitle="用于系统展示" nzType="question-circle" theme="outline"></i>
+          </span>
+          </nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24">
+            <input nz-input id="nickname" formControlName="nickname"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="email" nzRequired>E-mail</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" nzHasFeedback nzErrorTip="请输入合法电子邮箱！">
+            <input nz-input formControlName="email" id="email"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20" *ngIf="!record.id">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" nzErrorTip="密码必填！">
+            <input nz-input type="password" id="password" formControlName="password"
+                   (change)="updateConfirmValidator()"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20" *ngIf="!record.id">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="checkPassword" nzRequired>确认密码</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="errorTpl">
+            <input nz-input type="password" formControlName="checkPassword" id="checkPassword"/>
+            <ng-template #errorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                确认密码必填！
+              </ng-container>
+              <ng-container *ngIf="control.hasError('confirm')">
+                两次密码输入不一致！
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="roles">角色</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" nzHasFeedback nzErrorTip="角色必填！">
+            <nz-select
+              formControlName="roles"
+              [nzMaxTagCount]="5"
+              [nzMaxTagPlaceholder]="tagPlaceHolder"
+              nzMode="multiple"
+              style="width: 100%"
+              nzPlaceHolder="用户角色"
+              id="roles">
+              <nz-option *ngFor="let role of roleOptionList" [nzLabel]="role.name" [nzValue]="role.id"></nz-option>
+            </nz-select>
+            <ng-template #tagPlaceHolder let-selectedList>...</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="8" nzRequired nzFor="departments">所属部门</nz-form-label>
+          <nz-form-control [nzSpan]="16" nzHasFeedback nzErrorTip="所属部门必填！">
+            <nz-tree-select
+              nzPlaceHolder="点击选取"
+              formControlName="departments"
+              [nzMaxTagCount]="3"
+              [nzMaxTagPlaceholder]="omittedPlaceHolder"
+              [nzNodes]="deptOptionList"
+              [nzDefaultExpandAll]="true"
+              [nzAllowClear]="true"
+              [nzMultiple]="true">
+            </nz-tree-select>
+            <ng-template #omittedPlaceHolder let-omittedValues>...</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="menus">头像</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" nzHasFeedback>
+            <input nz-input hidden formControlName="avatar">
+            <nz-upload
+              class="avatar-uploader"
+              [nzAction]="avatarAction"
+              nzName="avatar"
+              nzListType="picture-card"
+              [nzShowUploadList]="false"
+              [nzBeforeUpload]="beforeUpload"
+              nzFileType="image/*"
+              (nzChange)="handleChange($event)">
+              <ng-container *ngIf="!avatarUrl">
+                <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
+                <div class="ant-upload-text">上传</div>
+              </ng-container>
+              <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar" width="128" height="128"/>
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="submitForm(validateForm.value)"
+          [disabled]="!validateForm.valid" [nzLoading]="http.loading">保存
+  </button>
+</div>

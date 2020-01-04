@@ -1,0 +1,84 @@
+<div class="modal-header">
+  <div class="modal-title">{{record.id ? '编辑' : '新建'}}</div>
+</div>
+
+<nz-spin *ngIf="!node" class="modal-spin"></nz-spin>
+
+<div *ngIf="node">
+  <form nz-form [formGroup]="validateForm">
+    <input nz-input hidden formControlName="id"/>
+    <input nz-input hidden formControlName="workflow_id"/>
+    <div nz-row [nzGutter]="24">
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="20" nzRequired nzFor="name">名称</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="20" nzHasFeedback nzErrorTip="名称必填！">
+            <input nz-input formControlName="name" id="name" placeholder="名称"/>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="20">画布位置</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="20">
+            <nz-input-group nzAddOnBefore="X">
+              <input type="text" formControlName="position_x" nz-input readonly/>
+            </nz-input-group>
+            <nz-input-group nzAddOnBefore="Y">
+              <input type="text" formControlName="position_y" nz-input readonly/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="20" nzRequired>节点类型</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="20" nzHasFeedback nzErrorTip="节点类型必填！">
+            <nz-radio-group formControlName="type">
+              <label nz-radio [nzValue]="0">常规节点</label>
+              <label nz-radio [nzValue]="1">开始节点</label>
+              <label nz-radio [nzValue]="2">结束节点</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20" *ngIf="validateForm.value.type === 0">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="20" nzRequired>审核方式</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="20" nzHasFeedback nzErrorTip="审核类型必填！">
+            <nz-radio-group formControlName="mode">
+              <label nz-radio [nzValue]="1">普签</label>
+              <label nz-radio [nzValue]="2">会签</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col [nzSpan]="20" *ngIf="validateForm.value.type === 0">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="20">审核人</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="20">
+            <button nz-button [nzType]="'dashed'" (click)="reviewerSet(node)"
+                    style="width: 100%; height: 100px;">
+              <i nz-icon nzType="plus"></i>
+              <span>点击设置审核人</span>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="submit" nzType="primary" (click)="submitForm(validateForm.value)"
+          [disabled]="!validateForm.valid"
+          [nzLoading]="http.loading">保存
+  </button>
+</div>

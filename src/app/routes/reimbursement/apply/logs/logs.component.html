@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <div class="modal-title">审核日志</div>
+</div>
+<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+<div sv-container *ngIf="i">
+  <nz-table #basicTable [nzData]="i" nzShowPagination="false" nzBordered>
+    <thead>
+    <tr>
+      <th>提交次数</th>
+      <th>审核节点</th>
+      <th>审核结果</th>
+      <th>审核人</th>
+      <th>审核时间</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td class="text-center">{{ data.apply_times }}</td>
+      <td>{{ data.node_name }}</td>
+      <td>
+        <nz-badge [nzStatus]="data.action == 'reject' ? 'error' :'success'" nzText="{{ data.action_str }}"></nz-badge>
+      </td>
+      <td>{{ data.creator.nickname }}</td>
+      <td>{{ data.created_at }}</td>
+      <td>{{ data.remarks }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>
