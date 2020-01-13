@@ -1,0 +1,7 @@
+<application>
+  <component name="IntentionManagerSettings">
+    <ignoreAction name="JavaScript/ECMAScript 6/Introduce object or array destructuring" />
+    <ignoreAction name="JavaScript/Conditional Operator/Flip If" />
+    <ignoreAction name="JavaScript/Quote property names" />
+  </component>
+</application>

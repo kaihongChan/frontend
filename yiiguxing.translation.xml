@@ -1,0 +1,39 @@
+<application>
+  <component name="AppStorage">
+    <histories>
+      <item value="Replace an existing control." />
+      <item value="Fires when the contents of the object or selection have changed" />
+      <item value="For a given function, creates a bound function that has the same body as the original function." />
+      <item value="Recalculates the value and validation status of the control" />
+      <item value="Marks the control as `dirty`. A control becomes dirty when * the control's value is changed through the UI; compare `markAsTouched`." />
+      <item value="Developer-defined state that can be passed to any navigation. * Access this value through the `Navigation.extras` object * returned from `router.getCurrentNavigation()` while a navigation is executing." />
+      <item value="navigates while replacing the current state in history" />
+      <item value="preserves the URL fragment for the next navigation" />
+      <item value="navigates without pushing a new state into history" />
+      <item value="When `static` is not provided, uses query results to determine the timing of query * resolution. If any query results are inside a nested view (such as `*ngIf`), the query is * resolved after change detection runs. Otherwise, it is resolved before change detection * runs." />
+      <item value="When true, preserves the URL fragment for the next navigation" />
+      <item value="When true, navigates while replacing the current state in history." />
+      <item value="extras An object containing properties that modify the navigation strategy. * The function ignores any properties in the `NavigationExtras` that would change the * provided URL" />
+      <item value="A value between 2 and 36 that specifies the base of the number in numString" />
+      <item value="Returns the elements of an array that meet the condition specified in a callback function." />
+      <item value="Calls a defined callback function on each element of an array, and returns an array that contains the results." />
+      <item value="Reverses the elements in an Array." />
+      <item value="`emitEvent`: When true or not supplied (the default), both the `statusChanges` and * `valueChanges" />
+      <item value="`onlySelf`: When true, each change only affects this control, and not its parent. Default is * false." />
+      <item value="/** * Constructs a new `FormArray` from the given array of configurations, * validators and options. * * @param controlsConfig An array of child controls or control configs. Each * child control is given an index when it is registered. * * @param validatorOrOpts A synchronous validator function, or an array of * such functions, or an `AbstractControlOptions` object that contains * validation functions and a validation trigger. * * @param asyncValidator A single async validator or array of async validator * functions. */" />
+      <item value="controls Config" />
+      <item value="The set of components that are bootstrapped when * this module is bootstrapped. The components listed here * are automatically added to `entryComponents`." />
+      <item value="Angular automatically adds components in the module's bootstrap * and route definitions into the `entryComponents` list. Use this * option to add components that are bootstrapped * using one of the imperative techniques, such as `ViewContainerRef.createComponent()`. *" />
+      <item value="For each component listed here, Angular creates a `ComponentFactory` * and stores it in the `ComponentFactoryResolver`." />
+      <item value="* The set of components to compile when this NgModule is defined, * so that they can be dynamically loaded into the view." />
+      <item value="ViewChild decorator and metadata." />
+      <item value="Type of the ViewChild decorator / constructor function." />
+    </histories>
+    <option name="languageScores">
+      <map>
+        <entry key="CHINESE" value="29" />
+        <entry key="ENGLISH" value="30" />
+      </map>
+    </option>
+  </component>
+</application>
