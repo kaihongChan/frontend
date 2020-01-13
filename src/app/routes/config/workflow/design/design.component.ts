@@ -172,12 +172,9 @@ export class ConfigWorkflowDesignComponent implements OnInit, AfterViewInit {
         },
       },
       defaultEdge: {
-        shape: 'polyline',
         color: '#ccc',
         size: 2,
         style: {
-          radius: 20,
-          offset: 45,
           endArrow: true,
           lineWidth: 2,
           stroke: '#C2C8D5',
